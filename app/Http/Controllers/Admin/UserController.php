@@ -7,6 +7,7 @@ use App\Models\manageUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -43,6 +44,40 @@ class UserController extends Controller
             return redirect()->route('admin.user.manageUser')->with('error', 'An error occurred while creating the user. Please try again.');
         }
     }
+
+    public function update(request $request, string $id){
+        $validateUser =  Validator::make($request->all(), [
+                'username' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email,' . $id, // Allow same email for the same user
+                'password' => 'nullable|string|min:8|confirmed',
+                'contact' => 'required|string|max:15',
+                'address' => 'required|string|max:255',
+        ]);
+        if ($validateUser->fails()) {
+            return redirect()->route('admin.user.manageUser')
+                ->withErrors($validateUser)
+                ->withInput(); // Keeps old input
+        }
+            $user = User::findOrFail($id);
+        $user = User::where('id',$id)->update([
+            'username' => $request['username'],
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => $request->password ? bcrypt($request->password) : $user->password, // Hash password only if provided
+                'contact' => $request['contact'],
+                'address' => $request['address'],
+        ]);
+        return redirect()->route('admin.user.manageUser')->with('success', 'Data edited successfully.');
+
+    }
+
+    public function destroy(string $id){
+        $data = User::where('id',$id)->delete();
+        return redirect()->route('admin.user.manageUser')->with('success', 'Data deleted successfully.');
+    }
+
+    
     
     
     // Display the user management page

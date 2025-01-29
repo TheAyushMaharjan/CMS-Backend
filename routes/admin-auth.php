@@ -37,12 +37,17 @@ Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function
         Route::get('/manageUser', [UserController::class, 'manageUser'])->name('manageUser'); // Manage Users
         Route::get('/managePermission', [UserController::class, 'managePermission'])->name('managePermission'); // Manage Permissions
         Route::post('/store', [UserController::class, 'store'])->name('store'); 
+        Route::delete('/destroy/{id}', [UserController::class, 'destroy'])->name('destroy'); 
+
 
     });
 
     Route::prefix('blog')->name('blog.')->group(function () {
         Route::get('/blogCategory', [BlogController::class, 'blogCategory'])->name('blogCategory'); // Blog Categories
-        Route::get('/blogCrud', [BlogController::class, 'blogCrud'])->name('blogCrud'); // Blog CRUD
+        Route::get('/blogSetup', [BlogController::class, 'blogSetup'])->name('blogSetup'); // Blog CRUD
+        Route::post('/store', [BlogController::class, 'store'])->name('store'); 
+        Route::delete('/destroy/{id}', [BlogController::class, 'destroy'])->name('destroy'); 
+
     });
 
 

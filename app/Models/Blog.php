@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Blog extends Model
 {
@@ -10,13 +11,10 @@ class Blog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'c_name',
-        'i_name',
+        'category_name',
+        'icon_name',
         'description',
-        'seo_title',
-        'seo_keyword',
-        'seo_description',
-        'seo_order',
+        'is_published', 
         
     ];
 }

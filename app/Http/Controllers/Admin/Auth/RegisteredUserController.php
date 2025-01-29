@@ -41,9 +41,10 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($admin));
+        //this will automatically login the user and send to dashboard
+        // event(new Registered($admin));
 
-        Auth::guard('admin')->login($admin);
+        // Auth::guard('admin')->login($admin);
 
         return redirect(route('admin.login', absolute: false));
     }

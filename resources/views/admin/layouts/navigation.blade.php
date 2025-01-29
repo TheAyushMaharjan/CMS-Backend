@@ -42,8 +42,8 @@
                     <x-nav-link :href="route('admin.blog.blogCategory')" :active="request()->routeIs('admin.blog.blogCategory')">
                         {{ __('Blog Categories') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('admin.blog.blogCrud')" :active="request()->routeIs('admin.blog.blogCrud')">
-                        {{ __('Blog Add/Delete') }}
+                    <x-nav-link :href="route('admin.blog.blogSetup')" :active="request()->routeIs('admin.blog.blogSetup')">
+                        {{ __('Blog Setup') }}
                     </x-nav-link>
                 </x-nav-dropdown>
 
